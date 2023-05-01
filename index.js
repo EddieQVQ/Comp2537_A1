@@ -27,13 +27,7 @@ const mongodb_session_secret = process.env.MONGODB_SESSION_SECRET;
 const node_session_secret = process.env.NODE_SESSION_SECRET;
 /* END secret section */
 
-const {database, connect} = include('databaseConnection');
-connect().then(() => {
-    console.log('Connected to the database');
-}).catch((error) => {
-    console.error('Error connecting to the database:', error);
-});
-
+var {database} = include('databaseConnection');
 
 const userCollection = database.db(mongodb_database).collection('users');
 
@@ -44,7 +38,8 @@ var mongoStore = MongoStore.create({
     crypto: {
       secret: mongodb_session_secret
     }
-  });  
+  });
+  
 
 app.use(session({ 
     secret: node_session_secret,
@@ -273,6 +268,7 @@ app.get('/cat/:id', (req,res) => {
         res.send("Invalid cat id: "+cat);
     }
 });
+
 
 app.use(express.static(__dirname + "/public"));
 
