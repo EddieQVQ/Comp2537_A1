@@ -252,12 +252,9 @@ app.get('/signout', (req, res) => {
     });
 });
 
-app.get('/bcit.ico', (req, res) => {
-    res.sendFile(__dirname + '/public/bcit.ico');
+app.get('/favicon.ico', (req, res) => {
+    res.sendFile(__dirname + '/public/favicon.ico');
   });
-  
-
-
 
 app.get('/cat/:id', (req,res) => {
 
