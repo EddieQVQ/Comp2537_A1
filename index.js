@@ -269,6 +269,13 @@ app.get('/cat/:id', (req,res) => {
 });
 
 
+const path = require('path');
+
+app.get('/favicon.ico', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'BCIT.ico'));
+});
+
+
 app.use(express.static(__dirname + "/public"));
 
 app.get("*", (req,res) => {
