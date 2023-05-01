@@ -29,6 +29,9 @@ const node_session_secret = process.env.NODE_SESSION_SECRET;
 
 var {database} = include('databaseConnection');
 
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://EddieQVQ:<password>@cluster.7kuiygn.mongodb.net/?retryWrites=true&w=majority";
+
 const userCollection = database.db(mongodb_database).collection('users');
 
 app.use(express.urlencoded({extended: false}));
