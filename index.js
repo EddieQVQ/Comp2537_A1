@@ -27,7 +27,26 @@ const mongodb_session_secret = process.env.MONGODB_SESSION_SECRET;
 const node_session_secret = process.env.NODE_SESSION_SECRET;
 /* END secret section */
 
-var {database} = include('databaseConnection');
+const MongoClient = require('mongodb').MongoClient;
+const uri = 'mongodb+srv://EddieQVQ:<password>@cluster.7kuiygn.mongodb.net/?retryWrites=true&w=majority';
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+client.connect(err => {
+  if (err) {
+    console.log('Error connecting to MongoDB:', err);
+    return;
+  }
+
+  console.log('Connected to MongoDB');
+
+  // Start the server
+  app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+  });
+});
+
+const database = client.db('<your-database-name>');
+
 
 const userCollection = database.db(mongodb_database).collection('users');
 
@@ -267,14 +286,6 @@ app.get('/cat/:id', (req,res) => {
         res.send("Invalid cat id: "+cat);
     }
 });
-
-
-const path = require('path');
-
-app.get('/favicon.ico', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'BCIT.ico'));
-});
-
 
 app.use(express.static(__dirname + "/public"));
 
